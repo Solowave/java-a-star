@@ -5,11 +5,11 @@ public class Astar {
     
 //	Takes x1 x2 and y1 y2
 //	Calculates the distance between the 2 points in the fastest way.
-    public static double getDistance(int start_x, int start_y, int end_x, int end_y) {
+    private static double getDistance(int start_x, int start_y, int end_x, int end_y) {
 		return Math.sqrt(Math.pow(start_x - end_x, 2) + Math.pow(start_y - end_y, 2));
 	}
     
-	public static boolean isNodeInList(ArrayList<Node> list, int x, int y) {
+    private static boolean isNodeInList(ArrayList<Node> list, int x, int y) {
 		for(Node newNode : list) {
 			if(newNode.x == x && newNode.y == y) {
 				return true;
@@ -19,11 +19,13 @@ public class Astar {
 		return false;
 	}
     
-    public static ArrayList<Node> findPath(int[][] map) {
+    
+    
+    public static ArrayList<Node> findPath(int[][] map, int startx, int starty, int endx, int endy) {
     	
 //    	Declares both starting and ending nodes;
-        Node start_node = new Node(0, 0, null, 0, 0);
-        Node end_node = new Node(4, 4, null, 0, 0);
+        Node start_node = new Node(startx, starty, null, 0, 0);
+        Node end_node = new Node(endx, endy, null, 0, 0);
         
 //      Initializes the open and closed list.
         ArrayList<Node> openList = new ArrayList<Node>();
@@ -89,9 +91,10 @@ public class Astar {
         		}
         		
 //        		Checks if node is traversable
-        		if(map[futureX][futureY] == 1){
+    			if(map[futureY][futureX] == 1){
         			continue;
         		}
+        		
         		
 //        		Check if node is in closed list.
         		if(isNodeInList(closedList, futureX, futureY)) {
@@ -110,7 +113,7 @@ public class Astar {
         		
         		// Adds the node to the openList, recursing the program.
         		for(Node newNode : openList) {
-        			if(newNode.x == futureX && newNode.y == futureY) {
+        			if(newNode == neighboring_node) {
         				inOpenList = true;
         				if(neighboring_node.f < newNode.f) {
         					inOpenList = false;
