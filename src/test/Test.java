@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 
 import astar.Astar;
 import astar.Node;
-import visualize.window;
 
 public class Test {
 	//  Initializes the map.
@@ -35,9 +34,6 @@ public class Test {
 			}
 			System.out.println();
 		}
-    	
-    	window w = new window(map);
-    	w.drawSquare(startx, starty, endx, endy);
 		
 		long startTime = System.currentTimeMillis();
 		ArrayList<Node> path = Astar.findPath(map, 0, 0, 4, 9);
